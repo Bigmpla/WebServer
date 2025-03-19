@@ -1,0 +1,12 @@
+2025-03-19 00:04:17.847924[error]: ======== Server init error! ========
+2025-03-19 09:54:19.048770[error]: ======== Server init error! ========
+2025-03-19 10:03:25.436989[error]: ======== Server init error! ========
+2025-03-19 10:05:08.879118[error]: ======== Server init error! ========
+2025-03-19 10:14:41.295775[error]: ======== Server init error! ========
+2025-03-19 10:24:32.149629[error]: ======== Server init error! ========
+2025-03-19 10:41:09.931072[info] : ======== Server init ========
+2025-03-19 10:41:09.931096[info] : Port: 1543, OpenLinger: false
+2025-03-19 10:41:09.931102[info] : Listen Mode: ET, OpenConn Mode: ET
+2025-03-19 10:41:09.931105[info] : LogSys level: 1
+2025-03-19 10:41:09.931186[info] : srcDir: /home/luoxing0060/webserver/mywb/resources/
+2025-03-19 10:41:09.931193[info] : SqlConnPool num: 12, ThreadPool num: 6
