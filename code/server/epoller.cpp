@@ -29,7 +29,7 @@ bool Epoller::ModFd(int fd, uint32_t events){
 bool Epoller::DelFd(int fd){
     if(fd < 0)return false;
     epoll_event ev = {0};
-    return epoll_ctl(epollFd_, EPOLL_CTL_DEL, fd, &ev);
+    return epoll_ctl(epollFd_, EPOLL_CTL_DEL, fd, &ev) == 0;
 }
 
 int Epoller::Wait(int timeoutMs){

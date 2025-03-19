@@ -4,7 +4,7 @@ using namespace std;
 
 WebServer::WebServer(int port,int trigMode, int timeoutMs, bool OptLinger,
     int sqlPort, const char* sqlUser, const char* sqlPwd,
-    const char* dbName, int connPoolNumm ,int threadNum,
+    const char* dbName, int connPoolNum ,int threadNum,
     bool openLog, int logLevel, int logQueSize):
     port_(port), openLinger_(OptLinger), timeoutMs_(timeoutMs), isClose_(false),
             timer_(new HeapTimer()), threadpool_(new ThreadPool(threadNum)), epoller_(new Epoller()){
@@ -15,7 +15,7 @@ WebServer::WebServer(int port,int trigMode, int timeoutMs, bool OptLinger,
     HttpConn::userCount = 0;
     HttpConn::srcDir = srcDir_;
 
-    SqlConnPool::Instance()->Init("localhost", sqlPort, sqlUser, sqlPwd, dbName, connPoolNumm);
+    SqlConnPool::Instance()->Init("localhost", sqlPort, sqlUser, sqlPwd, dbName, connPoolNum);
     InitEventMode_(trigMode);
     if(!InitSocket_()) isClose_ = true;
 
@@ -32,7 +32,7 @@ WebServer::WebServer(int port,int trigMode, int timeoutMs, bool OptLinger,
             (connEvent_ & EPOLLET ? "ET": "LT"));
             LOG_INFO("LogSys level: %d", logLevel);
             LOG_INFO("srcDir: %s", HttpConn::srcDir);
-            LOG_INFO("SqlConnPool num: %d, ThreadPool num: %d", connPoolNumm, threadNum);
+            LOG_INFO("SqlConnPool num: %d, ThreadPool num: %d", connPoolNum, threadNum);
         }
     }
 }
@@ -71,7 +71,7 @@ void WebServer::InitEventMode_(int trigMode){
 void WebServer::Start(){
     int timeMS = -1;
     
-        LOG_INFO("======== Server start ========");
+    if(!isClose_)LOG_INFO("======== Server start ========");
     
     while(!isClose_){
         if(timeoutMs_ > 0){
@@ -146,6 +146,7 @@ void WebServer::DealListen_(){
             LOG_WARN("Clients is full!");
             return;
         }
+        AddClient_(fd,addr);
     }while(listenEvent_ & EPOLLET);//如果是边缘触发就循环处理，水平触发则只调用一次
 }
 
